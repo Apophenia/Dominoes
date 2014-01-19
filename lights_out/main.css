@@ -1,0 +1,17 @@
+body {
+  color: #000000;
+  background: #555;
+}
+.box {
+    height: 100px;
+    width: 100px;
+    border: 5px;
+    border-color: #555;
+    border-style: solid;
+    }
+.unlit {
+    background: #999;
+    }
+.lit {
+    background: #f5e67a;
+}
