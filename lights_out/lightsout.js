@@ -2,26 +2,34 @@ window.onload = function () {
 
     var grid = [];
     var game = document.getElementById("game");
+    var diagonals = [true, false, false, false, false,
+		     false, true, false, false, false,
+		     false, false, true, false, false,
+		     false, false, false, true, false,
+		     false, false, false, false, true];
 
-    for (var i = 0; i < 5; i++) {
-	var row = [];
-	var boundingBox = document.createElement("div");
-	for (var j = 0; j < 5; j++) {
-	    var box = document.createElement("button");
-	    box.setAttribute("data-row", i);
-	    box.setAttribute("data-column", j);
-	    box.id = "light" + "-" + i + "-" + j;
-	    box.className = "box unlit";
-	    row.push(box);
-	    boundingBox.appendChild(box);
-	}
-	game.appendChild(boundingBox);
-	grid.push(row);
-    };
+    function buildBoxes() {
+	for (var i = 0; i < 5; i++) {
+	    var row = [];
+	    var boundingBox = document.createElement("div");
+	    for (var j = 0; j < 5; j++) {
+		var box = document.createElement("button");
+		box.setAttribute("data-row", i);
+		box.setAttribute("data-column", j);
+		box.id = "light" + "-" + i + "-" + j;
+		box.className = "box unlit";
+		row.push(box);
+		boundingBox.appendChild(box);
+	    }
+	    game.appendChild(boundingBox);
+	    grid.push(row);
+	};
+    }
 
+    buildBoxes();
     var boxes = document.getElementsByClassName("box");
 
-    for (var i = 0, len = boxes.length; i < len; i++) {
+    for (var i = 0; i < boxes.length; i++) {
 	boxes[i].addEventListener("click", function (event) {
 	    var square = event.target;
 	    makeMove(square);
@@ -80,7 +88,7 @@ window.onload = function () {
     }
 
     function isWon(boxes) {
-	for (var i = 0, len = boxes.length; i < len; i++) {
+	for (var i = 0; i < boxes.length; i++) {
 	    if (boxes[i].className === "box lit") {
 		return false;
 	    }
@@ -88,21 +96,13 @@ window.onload = function () {
 	return true;
     }
 
-
-    function setGame(array) {
-	for (var i = 0, len = boxes.length; i < len; i++) {
-	    if (array[i]) {
-		console.log(i);
+    function setGame(gameArray) {
+	for (var i = 0; i < boxes.length; i++) {
+	    if (gameArray[i]) {
 		boxes[i].className = "box lit";
 	    }
 	}
     }
-
-    var diagonals = [true, false, false, false, false,
-		     false, true, false, false, false,
-		     false, false, true, false, false,
-		     false, false, false, true, false,
-		     false, false, false, false, true];
 
     setGame(diagonals);
 }
